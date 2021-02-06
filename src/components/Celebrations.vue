@@ -1,14 +1,15 @@
 <template>
   <div>
     <h3>Celebrations Component</h3>
-    {{ celebrations }}
+    <pre>{{ celebrationsJSON | prettify }}</pre>
   </div>
 </template>
 
 <script>
 
 import CelebrationsService from '../services/celebrations.service';
-const celebrations = null;
+
+var celebrationsJSON = null;
 
 export default {
   name: 'Celebrations',
@@ -17,7 +18,7 @@ export default {
   },
   data () {
     return {
-      celebrations,
+      celebrationsJSON,
     }
   },
   async mounted () {
@@ -25,9 +26,9 @@ export default {
   },
   methods: {
     async getCelebrations() {
-      this.celebrations = await CelebrationsService.getCelebrations().then(res => res.data)
+      this.celebrationsJSON = JSON.stringify(await CelebrationsService.getCelebrations().then(res => ({ data: res.data })))
     }
-  }
+  },
 }
 </script>
 
